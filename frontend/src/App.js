@@ -46,7 +46,7 @@ function App() {
         </div>
       ))}
 
-      <img src="/images/fe444562c7a72ce74922182864b9b845" alt=""></img>
+      <img src="/images/0109b808b1403e2013eb50cfd718dae4" alt=""></img>
 
     </div>
   );

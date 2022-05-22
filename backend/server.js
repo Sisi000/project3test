@@ -1,37 +1,34 @@
-const express = require('express')
+const express = require("express");
+const multer = require("multer");
+const s3Storage = require("multer-sharp-s3");
+const aws = require("aws-sdk");
 
-const fs = require('fs')
-const util = require('util')
-const unlinkFile = util.promisify(fs.unlink)
+const s3 = new aws.S3();
+const app = express();
 
-const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const storage = s3Storage({
+  s3,
+  Bucket: "project3inc",
+  resize: {
+    width: 400,
+    height: 400,
+  },
+  max: true,
+});
 
-const { uploadFile, getFileStream } = require('./s3')
+const upload = multer({ storage: storage });
 
-const app = express()
+app.get("/images/:key", (req, res) => {
+  console.log(req.params);
+  const key = req.params.key;
+  const readStream = getFileStream(key);
 
+  readStream.pipe(res);
+});
 
-app.get('/images/:key', (req, res) => {
-  console.log(req.params)
-  const key = req.params.key
-  const readStream = getFileStream(key)
+app.post("/upload", upload.single("image"), (req, res, next) => {
+  console.log(req.file); // Print upload details
+  res.send("Successfully uploaded!");
+});
 
-  readStream.pipe(res)
-})
-
-app.post('/images', upload.single('image'), async (req, res) => {
-  const file = req.file
-  console.log(file)
-
-  // apply filter
-  // resize 
-
-  const result = await uploadFile(file)
-  await unlinkFile(file.path)
-  console.log(result)
-  const description = req.body.description
-  res.send({imagePath: `/images/${result.Key}`})
-})
-
-app.listen(8080, () => console.log("listening on port 8080"))
+app.listen(8080, () => console.log("listening on port 8080"));
