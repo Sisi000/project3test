@@ -1,23 +1,15 @@
 {
-  "name": "backend",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@google-cloud/storage": "^5.20.5",
     "aws-sdk": "^2.1140.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "filepond": "^4.30.3",
-    "get-stream": "^6.0.1",
     "multer": "^1.4.4",
-    "multer-imager": "^4.2.0",
-    "multer-s3": "^2.10.0",
     "multer-sharp-s3": "^0.2.5",
-    "nodemon": "^2.0.16",
-    "python": "^0.0.4",
-    "react-filepond": "^7.1.2",
-    "sharp": "^0.30.4"
+    "nodemon": "^2.0.16"
   },
   "scripts": {
     "start": "nodemon server.js",
