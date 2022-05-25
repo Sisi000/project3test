@@ -14,9 +14,9 @@ const storage = s3Storage({
     width: 400,
     height: 400,
    },
-   options: {fit: "contain"},
-  
-  max: true,
+   options:
+   { fit: 'contain'},
+    max: true,
 });
 
 const upload = multer({ storage: storage });
