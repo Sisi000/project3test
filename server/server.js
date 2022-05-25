@@ -9,7 +9,7 @@ const app = express();
 
 const storage = s3Storage({
   s3,
-  Bucket: "project3inc",
+  Bucket: "BUCKET_NAME",  // replace with your bucket name
   resize: {
     width: 400,
     height: 400,
