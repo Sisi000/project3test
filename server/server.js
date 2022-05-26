@@ -2,21 +2,19 @@ const express = require("express");
 const multer = require("multer");
 const s3Storage = require("multer-sharp-s3");
 const aws = require("aws-sdk");
-const { getFileStream } = require('./s3')
+const { getFileStream } = require("./s3");
 
 const s3 = new aws.S3();
 const app = express();
 
 const storage = s3Storage({
   s3,
-  Bucket: "BUCKET_NAME",  // replace with your bucket name
+  Bucket: "BUCKET_NAME", // replace with your bucket name
   resize: {
     width: 400,
     height: 400,
-   options:
-   { fit: 'contain'},
-    max: true,
-  }
+    options: { withoutEnlargement: true },
+  },
 });
 
 const upload = multer({ storage: storage });
